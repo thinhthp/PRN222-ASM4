@@ -1,0 +1,51 @@
+﻿@model zQuitSmoking.Repositories.ThinhTHP.Models.UserNotificationThinhThp
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>UserNotificationThinhThp</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserAccountId" class="control-label"></label>
+                <select asp-for="UserAccountId" class ="form-control" asp-items="ViewBag.UserAccountId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="NotificationThinhThpid" class="control-label"></label>
+                <select asp-for="NotificationThinhThpid" class ="form-control" asp-items="ViewBag.NotificationThinhThpid"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Response" class="control-label"></label>
+                <input asp-for="Response" class="form-control" />
+                <span asp-validation-for="Response" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastAttemptDate" class="control-label"></label>
+                <input asp-for="LastAttemptDate" class="form-control" />
+                <span asp-validation-for="LastAttemptDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

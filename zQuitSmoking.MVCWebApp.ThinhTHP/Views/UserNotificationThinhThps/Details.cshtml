@@ -1,0 +1,66 @@
+﻿@model zQuitSmoking.Repositories.ThinhTHP.Models.UserNotificationThinhThp
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>UserNotificationThinhThp</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SentDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SentDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IsRead)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IsRead)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Response)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Response)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AttemptCount)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AttemptCount)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LastAttemptDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LastAttemptDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NotificationThinhThp)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NotificationThinhThp.Message)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UserAccount)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UserAccount.Email)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.UserNotificationThinhThpid">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,77 @@
+﻿@model IEnumerable<zQuitSmoking.Repositories.ThinhTHP.Models.UserNotificationThinhThp>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SentDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsRead)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Response)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AttemptCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastAttemptDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NotificationThinhThp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserAccount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SentDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsRead)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Response)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AttemptCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastAttemptDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NotificationThinhThp.Message)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserAccount.Email)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.UserNotificationThinhThpid">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.UserNotificationThinhThpid">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.UserNotificationThinhThpid">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

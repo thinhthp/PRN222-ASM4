@@ -1,0 +1,69 @@
+﻿@model zQuitSmoking.Repositories.ThinhTHP.Models.UserNotificationThinhThp
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>UserNotificationThinhThp</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SentDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SentDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IsRead)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IsRead)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Response)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Response)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AttemptCount)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AttemptCount)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LastAttemptDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LastAttemptDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NotificationThinhThp)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NotificationThinhThp.Message)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UserAccount)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UserAccount.Email)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="UserNotificationThinhThpid" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
