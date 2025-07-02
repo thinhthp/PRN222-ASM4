@@ -4,66 +4,110 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<div class="container mt-4">
+    <h1 class="display-6 text-primary justify-content-center d-flex">Edit User Notification</h1>
+    <hr />
 
-<h4>UserNotificationThinhThp</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="UserNotificationThinhThpid" />
-            <div class="form-group">
-                <label asp-for="UserAccountId" class="control-label"></label>
-                <select asp-for="UserAccountId" class="form-control" asp-items="ViewBag.UserAccountId"></select>
-                <span asp-validation-for="UserAccountId" class="text-danger"></span>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title">Update Notification</h4>
+                    <form asp-action="Edit" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        <input type="hidden" asp-for="UserNotificationThinhThpid" />
+
+                        <div class="mb-3">
+                            <label asp-for="UserAccountId" class="form-label fw-bold"></label>
+                            <select asp-for="UserAccountId" class="form-select" asp-items="ViewBag.UserAccountId">
+                                <option value="">Select User</option>
+                            </select>
+                            <span asp-validation-for="UserAccountId" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="NotificationThinhThpid" class="form-label fw-bold"></label>
+                            <select asp-for="NotificationThinhThpid" class="form-select" asp-items="ViewBag.NotificationThinhThpid">
+                                <option value="">Select Notification</option>
+                            </select>
+                            <span asp-validation-for="NotificationThinhThpid" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="SentDate" class="form-label fw-bold"></label>
+                            <input asp-for="SentDate" class="form-control" type="datetime-local" />
+                            <span asp-validation-for="SentDate" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3 form-check">
+                            <input asp-for="IsRead" class="form-check-input" type="checkbox" />
+                            <label asp-for="IsRead" class="form-check-label">@Html.DisplayNameFor(model => model.IsRead)</label>
+                            <span asp-validation-for="IsRead" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Response" class="form-label fw-bold"></label>
+                            <input asp-for="Response" class="form-control" placeholder="Enter response" />
+                            <span asp-validation-for="Response" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Status" class="form-label fw-bold"></label>
+                            <input asp-for="Status" class="form-control" placeholder="Enter status" />
+                            <span asp-validation-for="Status" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="AttemptCount" class="form-label fw-bold"></label>
+                            <input asp-for="AttemptCount" class="form-control" type="number" min="0" />
+                            <span asp-validation-for="AttemptCount" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="LastAttemptDate" class="form-label fw-bold"></label>
+                            <input asp-for="LastAttemptDate" class="form-control" type="datetime-local" />
+                            <span asp-validation-for="LastAttemptDate" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save"></i> Save
+                            </button>
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left"></i> Back to List
+                            </a>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="NotificationThinhThpid" class="control-label"></label>
-                <select asp-for="NotificationThinhThpid" class="form-control" asp-items="ViewBag.NotificationThinhThpid"></select>
-                <span asp-validation-for="NotificationThinhThpid" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SentDate" class="control-label"></label>
-                <input asp-for="SentDate" class="form-control" />
-                <span asp-validation-for="SentDate" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsRead" /> @Html.DisplayNameFor(model => model.IsRead)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="Response" class="control-label"></label>
-                <input asp-for="Response" class="form-control" />
-                <span asp-validation-for="Response" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AttemptCount" class="control-label"></label>
-                <input asp-for="AttemptCount" class="form-control" />
-                <span asp-validation-for="AttemptCount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastAttemptDate" class="control-label"></label>
-                <input asp-for="LastAttemptDate" class="form-control" />
-                <span asp-validation-for="LastAttemptDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
+
+<style>
+    .card {
+        border-radius: 0.5rem;
+    }
+
+    .form-label {
+        color: #495057;
+    }
+
+    .form-control, .form-select {
+        border-radius: 0.375rem;
+    }
+
+    .btn {
+        border-radius: 0.375rem;
+    }
+
+    .form-check-input {
+        margin-top: 0.3rem;
+    }
+</style>
