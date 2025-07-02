@@ -1,4 +1,4 @@
-﻿@model IEnumerable<zQuitSmoking.Repositories.ThinhTHP.Models.UserNotificationThinhThp>
+﻿@model UserNotificationThinhThpIndexViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -9,69 +9,85 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<form asp-action="Index" method="get">
+    <input type="text" name="message" value="@Model.Message" placeholder="Message" />
+    <input type="text" name="response" value="@Model.Response" placeholder="Response" />
+    <input type="text" name="userName" value="@Model.UserName" placeholder="User Name" />
+    <select name="pageSize">
+        <option value="10" @@(Model.PageSize == 10 ? "selected" : "")>10</option>
+        <option value="20" @@(Model.PageSize == 20 ? "selected" : "")>20</option>
+        <option value="50" @@(Model.PageSize == 50 ? "selected" : "")>50</option>
+    </select>
+    <button type="submit">Search</button>
+</form>
+
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.SentDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsRead)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Response)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AttemptCount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastAttemptDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NotificationThinhThp)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserAccount)
-            </th>
+            <th>@Html.DisplayNameFor(model => model.Items[0].SentDate)</th>
+            <th>@Html.DisplayNameFor(model => model.Items[0].IsRead)</th>
+            <th>@Html.DisplayNameFor(model => model.Items[0].Response)</th>
+            <th>@Html.DisplayNameFor(model => model.Items[0].Status)</th>
+            <th>@Html.DisplayNameFor(model => model.Items[0].AttemptCount)</th>
+            <th>@Html.DisplayNameFor(model => model.Items[0].LastAttemptDate)</th>
+            <th>@Html.DisplayNameFor(model => model.Items[0].NotificationThinhThp.Message)</th>
+            <th>@Html.DisplayNameFor(model => model.Items[0].UserAccount.UserName)</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SentDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsRead)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Response)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AttemptCount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastAttemptDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NotificationThinhThp.Message)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserAccount.Email)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.UserNotificationThinhThpid">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.UserNotificationThinhThpid">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.UserNotificationThinhThpid">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.SentDate)</td>
+                <td>@Html.DisplayFor(modelItem => item.IsRead)</td>
+                <td>@Html.DisplayFor(modelItem => item.Response)</td>
+                <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                <td>@Html.DisplayFor(modelItem => item.AttemptCount)</td>
+                <td>@Html.DisplayFor(modelItem => item.LastAttemptDate)</td>
+                <td>@Html.DisplayFor(modelItem => item.NotificationThinhThp.Message)</td>
+                <td>@Html.DisplayFor(modelItem => item.UserAccount.UserName)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.UserNotificationThinhThpid">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.UserNotificationThinhThpid">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.UserNotificationThinhThpid">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@{
+    int start = (Model.CurrentPage - 1) * Model.PageSize + 1;
+    int end = start + Model.Items.Count - 1;
+    int total = Model.TotalCount;
+}
+
+<p>Showing @start to @end of @total entries</p>
+
+@if (Model.TotalPages > 1)
+{
+    <nav>
+        <ul class="pagination">
+            @if (Model.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index", new { pageNumber = Model.CurrentPage - 1, pageSize = Model.PageSize, message = Model.Message, response = Model.Response, userName = Model.UserName })">Previous</a>
+                </li>
+            }
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { pageNumber = i, pageSize = Model.PageSize, message = Model.Message, response = Model.Response, userName = Model.UserName })">@i</a>
+                </li>
+            }
+            @if (Model.CurrentPage < Model.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index", new { pageNumber = Model.CurrentPage + 1, pageSize = Model.PageSize, message = Model.Message, response = Model.Response, userName = Model.UserName })">Next</a>
+                </li>
+            }
+        </ul>
+    </nav>
+}

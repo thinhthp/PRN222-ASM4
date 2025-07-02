@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using zQuitSmoking.MVCWebApp.ThinhTHP.Models;
 using zQuitSmoking.Repositories.ThinhTHP.DBContext;
 using zQuitSmoking.Repositories.ThinhTHP.Models;
 using zQuitSmoking.Services.ThinhTHP;
@@ -22,7 +23,7 @@ namespace zQuitSmoking.MVCWebApp.ThinhTHP.Controllers
         }
 
         // GET: UserNotificationThinhThps
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index1()
         {
             //var sE18_PRN222_SE1809_G6_QuitSmokingDBContext = _context.UserNotificationThinhThps.Include(u => u.NotificationThinhThp).Include(u => u.UserAccount);
             //return View(await sE18_PRN222_SE1809_G6_QuitSmokingDBContext.ToListAsync());
@@ -182,6 +183,30 @@ namespace zQuitSmoking.MVCWebApp.ThinhTHP.Controllers
         {
             var entity = await _context.UserNotificationThinhThpService.GetByIdAsync(id);
             return entity != null;
+        }
+
+
+
+
+        public async Task<IActionResult> Index(string message, string response, string userName, int? pageNumber, int? pageSize)
+        {
+            int currentPage = pageNumber ?? 1;
+            int currentPageSize = pageSize ?? 3; // Default to 10 items per page
+
+            var result = await _context.UserNotificationThinhThpService.SearchAsync(message, response, userName, currentPage, currentPageSize);
+
+            var viewModel = new UserNotificationThinhThpIndexViewModel
+            {
+                Items = result.items,
+                TotalCount = result.totalCount,
+                CurrentPage = currentPage,
+                PageSize = currentPageSize,
+                Message = message,
+                Response = response,
+                UserName = userName
+            };
+
+            return View(viewModel);
         }
     }
 }
