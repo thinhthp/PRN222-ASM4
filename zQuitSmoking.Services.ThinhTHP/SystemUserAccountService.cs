@@ -25,5 +25,13 @@ namespace zQuitSmoking.Services.ThinhTHP
         {
             return await _repository.GetAllAsync();
         }
+
+        public async Task<int> CreateAsync(SystemUserAccount userAccount)
+        {
+            if (userAccount == null)
+                throw new ArgumentNullException(nameof(userAccount));
+            // You can add additional validation logic here if needed
+            return await _repository.CreateAsync(userAccount);
+        }
     }
 }

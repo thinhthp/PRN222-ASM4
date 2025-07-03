@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using zQuitSmoking.Repositories.ThinhTHP;
 using zQuitSmoking.Services.ThinhTHP;
 
@@ -7,9 +9,26 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IServiceProviders, ServiceProviders>();
 //builder.Services.AddScoped<zQuitSmoking.Repositories.ThinhTHP.DBContext.SE18_PRN222_SE1809_G6_QuitSmokingDBContext>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<SystemUserAccountRepository>();
+builder.Services.AddScoped<SystemUserAccountService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Register the custom authentication handler
+builder.Services.AddAuthentication("CustomAuth")
+    .AddScheme<AuthenticationSchemeOptions, CustomAuthHandler>("CustomAuth", null);
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+});
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+    options.AccessDeniedPath = "/Account/Forbidden";
+});
 
 var app = builder.Build();
 
@@ -26,6 +45,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

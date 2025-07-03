@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ using zQuitSmoking.Services.ThinhTHP;
 
 namespace zQuitSmoking.MVCWebApp.ThinhTHP.Controllers
 {
+    [Authorize]
     public class UserNotificationThinhThpsController : Controller
     {
         //private readonly SE18_PRN222_SE1809_G6_QuitSmokingDBContext _context;
@@ -33,6 +35,7 @@ namespace zQuitSmoking.MVCWebApp.ThinhTHP.Controllers
         }
 
         // GET: UserNotificationThinhThps/Details/5
+        [Authorize(Roles = "User, Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -55,6 +58,7 @@ namespace zQuitSmoking.MVCWebApp.ThinhTHP.Controllers
         }
 
         // GET: UserNotificationThinhThps/Create
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create()
         {
             var bang1 = await _context.NotificationThinhThpService.GetAllAsync();
@@ -69,6 +73,7 @@ namespace zQuitSmoking.MVCWebApp.ThinhTHP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("UserNotificationThinhThpid,UserAccountId,NotificationThinhThpid,SentDate,IsRead,Response,Status,AttemptCount,LastAttemptDate")] UserNotificationThinhThp userNotificationThinhThp)
         {
             var bang1 = await _context.NotificationThinhThpService.GetAllAsync();
@@ -84,6 +89,7 @@ namespace zQuitSmoking.MVCWebApp.ThinhTHP.Controllers
         }
 
         // GET: UserNotificationThinhThps/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             var bang1 = await _context.NotificationThinhThpService.GetAllAsync();
@@ -108,6 +114,7 @@ namespace zQuitSmoking.MVCWebApp.ThinhTHP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("UserNotificationThinhThpid,UserAccountId,NotificationThinhThpid,SentDate,IsRead,Response,Status,AttemptCount,LastAttemptDate")] UserNotificationThinhThp userNotificationThinhThp)
         {
             var bang1 = await _context.NotificationThinhThpService.GetAllAsync();
@@ -142,6 +149,7 @@ namespace zQuitSmoking.MVCWebApp.ThinhTHP.Controllers
         }
 
         // GET: UserNotificationThinhThps/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -165,6 +173,7 @@ namespace zQuitSmoking.MVCWebApp.ThinhTHP.Controllers
         // POST: UserNotificationThinhThps/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             //var userNotificationThinhThp = await _context.UserNotificationThinhThps.FindAsync(id);
@@ -187,7 +196,7 @@ namespace zQuitSmoking.MVCWebApp.ThinhTHP.Controllers
 
 
 
-
+        [Authorize(Roles = "User, Admin")]
         public async Task<IActionResult> Index(string message, string response, string userName, int? pageNumber, int? pageSize)
         {
             int currentPage = pageNumber ?? 1;
