@@ -73,8 +73,11 @@ public class AccountController : Controller
         return RedirectToAction("Index", "Home");
     }
 
-    public IActionResult Logout()
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Logout()
     {
+        await HttpContext.SignOutAsync();
         Response.Cookies.Delete("Username");
         Response.Cookies.Delete("Role");
         return RedirectToAction("Login");

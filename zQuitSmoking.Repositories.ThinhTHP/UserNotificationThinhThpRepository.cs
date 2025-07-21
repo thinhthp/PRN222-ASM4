@@ -19,6 +19,7 @@ namespace zQuitSmoking.Repositories.ThinhTHP
         public async Task<List<UserNotificationThinhThp>> GetAllAsync()
         {
             var item = await _context.UserNotificationThinhThps
+                .OrderByDescending(x => x.SentDate)
                 .Include(x => x.NotificationThinhThp).Include(x => x.UserAccount)
                 .ToListAsync();
             return item ?? new List<UserNotificationThinhThp>();
@@ -35,6 +36,7 @@ namespace zQuitSmoking.Repositories.ThinhTHP
         public async Task<List<UserNotificationThinhThp>> SearchAsync(string message, string response, string userName)
         {
             var items = await _context.UserNotificationThinhThps
+                .OrderByDescending(x => x.SentDate)
                 .Include(x => x.NotificationThinhThp).Include(x => x.UserAccount)
                 .Where(x =>
                 (x.NotificationThinhThp.Message.Contains(message) || string.IsNullOrEmpty(message))
@@ -48,6 +50,7 @@ namespace zQuitSmoking.Repositories.ThinhTHP
         public async Task<(List<UserNotificationThinhThp> items, int totalCount)> SearchAsync(string message, string response, string userName, int? pageNumber = null, int? pageSize = null)
         {
             var query = _context.UserNotificationThinhThps
+                .OrderByDescending(x => x.SentDate)
                 .Include(x => x.NotificationThinhThp)
                 .Include(x => x.UserAccount)
                 .Where(x =>
